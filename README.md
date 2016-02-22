@@ -10,7 +10,7 @@ package main
 
 import (
     "github.com/gin-gonic/gin"
-    "github.com/mirrr/ttpl"
+    "github.com/mirrr/go-gin-ttpl"
 )
 
 func main() {
