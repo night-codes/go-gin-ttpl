@@ -1,6 +1,7 @@
 package ttpl
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/render"
 	"net/http"
@@ -35,9 +36,13 @@ func (r PageRender) Render(w http.ResponseWriter) error {
 	}
 
 	if len(r.Name) > 0 {
-		r.Template.ExecuteTemplate(w, r.Name, r.Data)
+		if err := r.Template.ExecuteTemplate(w, r.Name, r.Data); err != nil {
+			fmt.Println("Template err: ", err.Error())
+		}
 	} else {
-		r.Template.Execute(w, r.Data)
+		if err := r.Template.Execute(w, r.Data); err != nil {
+			fmt.Println("Template err: ", err.Error())
+		}
 	}
 
 	return nil
