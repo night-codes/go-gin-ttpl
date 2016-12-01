@@ -3,6 +3,7 @@ Custom render for gin-gonic by "text/template" instead "html/template"
 
 ## Why Do It?
 Sometimes we need to render templates without HTML. Also "html/template" has the [problem](https://github.com/golang/go/issues/12149) with parser.
+Recursively parse all template files in all subdirectories.
 
 ## How To Use
 ```go
@@ -15,7 +16,7 @@ import (
 
 func main() {
     r := gin.New()
-    ttpl.Use(r, "templates/*")
+    ttpl.Use(r, "templates")
     r.GET("/", func(c *gin.Context) {
         c.HTML(200, "index.html", gin.H{"title": "top"})
     })
@@ -36,7 +37,7 @@ func main() {
     funcMap := template.FuncMap{
         "customFunc": customFunc, // A custom template function
     }
-    ttpl.Use(r, "templates/*", funcMap) // <--
+    ttpl.Use(r, "templates", funcMap) // <--
     // ...
 }
 ```
