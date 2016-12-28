@@ -9,8 +9,8 @@ Sometimes we need to render templates without HTML. Also "html/template" has the
 package main
 
 import (
-    "github.com/gin-gonic/gin"
-    "github.com/mirrr/go-gin-ttpl"
+    "gopkg.in/gin-gonic/gin.v1"
+    "gopkg.in/night-codes/go-gin-ttpl.v1"
 )
 
 func main() {
