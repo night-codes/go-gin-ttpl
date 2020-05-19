@@ -58,11 +58,15 @@ func (r PageRender) Render(w http.ResponseWriter) error {
 // Use ttpl render
 func Use(r *gin.Engine, pattern string, funcMap ...template.FuncMap) {
 	t := &template.Template{}
-	if len(funcMap) > 0 {
-		t = template.Must(template.New(pattern).Funcs(funcMap[0]).ParseGlob(pattern))
-	} else {
-		t = template.Must(template.New(pattern).ParseGlob(pattern))
-	}
+	filepath.Walk(pattern, func(path string, info os.FileInfo, err error) error {
+		if strings.HasSuffix(path, ".html") {
+			if len(funcMap) > 0 {
+				t = template.Must(template.New(path).Funcs(funcMap[0]).ParseGlob(path))
+			} else {
+				t = template.Must(template.New(path).ParseGlob(path))
+			}
+			return nil
+		})
 
 	r.HTMLRender = PageTemplate{"/", t}
 }
